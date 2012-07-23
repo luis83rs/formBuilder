@@ -1,0 +1,403 @@
+textarea:focus, input[type="password"]:focus, 
+input[type="search"]:focus, 
+input[type="text"]:focus, 
+select[multiple="multiple"]:focus {
+    border-color: rgba(213, 213, 213, 0.7);
+    box-shadow: 0 0 10px #EF4619 !important;
+    outline: 0 none;
+}
+
+.divgridHeaderQuestion{
+    background-color:#ef4619;
+    /*border-bottom: 1px solid #ccc;*/
+    float:left;
+    padding: 10px 0;
+    width: 100%;
+}
+
+#divgridBodyQuestion{
+    background-color:#EEE;
+    cursor:pointer; 
+    display:block;
+    float:left; 
+    text-align:left;
+    width: 100%;
+    height: 458px;
+    overflow: auto;
+}
+
+.page_break {
+    background-color: #FF9F0F;
+    border-bottom: 1px solid #ccc;
+    color: #555;
+    font-size: 10px;
+    height: 18px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.divgridBody.ui-sortable-helper,
+.divgridBodyColor.ui-sortable-helper {
+    border: 1px solid black !important;
+    background: none !important;
+    background: url('../images/css-images/pixel_transparent.png') repeat !important;
+}
+
+.btn_delete_pagebreak,
+.btn_clone_pagebreak {
+    float: right;
+    padding-right:20px;
+}
+
+.ui-accordion-content {
+    overflow: auto !important;
+    background: none !important;
+    border:0px !important;
+}
+
+.divgridFooterQuestion {
+    overflow: hidden ;
+    padding: 10px 0;
+    width: 100%;
+}
+
+.divgridBody,
+.divgridBodyColor {
+    border-bottom: 1px solid #ccc;
+    overflow: hidden;
+    padding: 10px 0;
+}
+
+.divgridBodyColor {
+    background-color: white;
+}
+
+.divgridBodyColorSelected {
+    background-color: #AAA !important;
+}
+
+.divgridBody a,
+.divgridBodyColor a {
+    -moz-transition: none;
+    -webkit-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+}
+
+.icon-conditional {
+    background: url('../images/css-images/icon-conditional.png') no-repeat;
+    float: left;
+    height: 23px;
+    width: 23px;
+}
+
+.reg-conditional {
+    padding-left: 10px !important;
+}
+
+.reg-not-conditional {
+    padding-left: 33px !important;
+}
+
+.divline{float:left; background-color:#999;}
+
+.col{float:left; margin: 0px 5px 0px 0px;}
+
+#modal_popupQuestion .col {
+    float: left;
+}
+
+#modal_popupQuestion .divrow {
+    background: none;
+    float: left;
+    overflow: hidden;
+    /*width: 49%;*/
+}
+
+#modal_popupQuestion .divrow.header {
+    width: 100%;
+}
+
+#modal_popupQuestion .divrow .col { 
+    height: 28px;
+    margin:0;
+    width: 80px;
+}
+
+#modal_popupQuestion .divrow .col input {
+    width: 100%;
+}
+
+#modal_popupQuestion .divrow .col.question,
+#modal_popupQuestion .divrow .col.description {
+    width: 150px;
+}
+
+#btn-save-question {
+    float:left;
+}
+
+#tableSaveQuestion{
+    margin: 0 auto;
+    width: 100px;
+}
+
+.colindice {
+    color: #777;
+    text-align: center;
+    width:5%;
+}
+
+.divgridBodyColorSelected .colindice {
+    color: #444
+}
+
+.colnormal{width:10%;}
+
+.coloptions{width:20%; float:right;}
+
+.colquestion{
+    padding-left: 10px;
+    width:62%;
+}
+
+/*.coltexto2{width:30%; background-color:#69C;}*/
+
+
+.divinfo{float:left; width: 960px; text-align:center;}
+
+.colinfo1{float:left; width: 190px; text-align:center;}
+
+.colinfo2{float:left; width: 380px; text-align:center;}
+
+.colinfo3{float:left; width: 190px; text-align:center;}
+
+.row-selected {
+    background-color: #ED4523;
+    height: 10px;
+    width: 100%;
+    overflow: hidden;
+}
+
+#content_preview {
+    background-color: white;
+    border: 1px solid;
+    display: none;
+    position: absolute;
+    height: 440px;
+    overflow: hidden;
+    padding: 30px 0 30px 30px;
+    width: 70%;
+    left: 12%;
+}
+
+#preview {
+    height: 420px;
+    overflow: auto;
+    width: 100%;
+    z-index: 10000;
+}
+
+#preview #save_button {
+    display: none;
+}
+
+.list-question {
+    width: 49%;
+    overflow: auto;
+    height: 500px;
+    float:left;
+    margin-top: 10px;
+}
+
+.edit-question-container {
+    /*border: 1px solid #ccc;*/
+    display: block;
+    float: left;
+    height: 497px;
+    margin: 10px 0 0 10px;
+    width: 49%;
+}
+
+.edit-question {
+    width: 100%;
+    /*height: 500px;*/
+    height: 445px;
+}
+
+.button {
+    display: block;
+    width: auto;
+    float: left;
+}
+
+.addquestion{
+	width: 49%;
+	float:left;
+}
+
+.previewfinishquestion{
+	width: 49%;
+	float:left;
+    margin-left: 10px;
+}
+
+.previewfinishquestionright
+{
+	float:right;
+    margin-right: -7px;
+}
+
+#tableQuestion {
+    margin: 0;
+    width: 100%;
+    overflow: auto;
+    height: 455px;    
+}
+
+#tableQuestion textarea {
+    width: 90%;
+}
+
+#tableQuestion tr,
+#tableQuestion tr td {
+    border: 0 !important;
+    vertical-align: middle;
+    padding: 3px 3px 3px 3px; 
+}
+
+#tablemodalpopupconditionalrulesadd thead th:last-child, 
+#tablemodalpopupconditionalrulesadd tr td:last-child {
+    border-right: none;
+}
+
+#tablemodalpopupconditionalrules select {
+    max-width: 80%;
+    vertical-align: middle;
+    padding: 0;
+}
+
+#troptions{
+    text-align:center;
+}
+#troptionschecks{
+    text-align:center !important;
+}
+
+.multipletr,
+.gridtr,
+.multipletrbuttonadd {
+	display: none;	
+}
+
+.deleteOption{
+    cursor:pointer;
+    width:15%;
+}
+
+#ddfieldrandomoptions {
+    display: block;
+    float: left;
+}
+
+#ddfieldmandatory {
+    display: block;
+    float: left;
+}
+
+/*#ddconditionquestion {
+    width: 99%;
+}*/
+
+#tableQuestion .ui-icon {
+    float: left;
+}
+
+#btn-close-preview {
+    background: url('../images/css-images/btn-close.png') no-repeat;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    position: relative;
+    top: -20px;
+    left: -20px;
+    width: 20px;
+    z-index: 1000;
+}
+
+#multipleoption{
+    cursor:pointer; 
+}
+
+#gridoptionrow{
+    cursor:pointer;
+}
+
+#gridoptioncol{
+    cursor:pointer;
+}
+
+tbody {
+    border: 0px !important;
+}
+
+h3{
+    cursor:pointer;
+}
+#capaGris{
+    width: 100%;
+    height: 100%;
+    background-color: gray;
+    display: none;
+    position: absolute;
+    opacity:0.8;
+    filter:alpha(opacity=80);
+}
+#loading{
+    color: black;
+    font-size: x-large;
+    font-weight: bold;
+    position: absolute;
+    margin-left: 44%;
+    margin-top: 20%;
+}
+.form_questions{
+    width: 99% !important;
+}
+
+#multipleoption tr:nth-child(even) { background: #fff }
+#multipleoption tr:nth-child(odd) { background: #ddd}
+
+#tablemodalpopupconditionalrulesTBODY tr:nth-child(even) { background: #fff }
+#tablemodalpopupconditionalrulesTBODY tr:nth-child(odd) { background: #ddd}
+
+.button {
+background: #ccc !important;
+}
+
+.button:hover{
+background: #fff !important;
+}
+
+.divGeneral{
+    cursor:pointer;
+}
+
+.divGeneral:hover{
+background: #EF4619 !important;
+}
+
+#ckmandatoryquestion #cklastoptionquestion{
+    margin-left: 0px !important;
+}
+
+#gridoptionrow tr:nth-child(even) { background: #ddd}
+#gridoptionrow tr:nth-child(odd) { background: #fff}
+#gridoptioncol tr:nth-child(even) { background: #fff}
+#gridoptioncol tr:nth-child(odd) { background: #ddd}
+
+#gridoptionrow tr td:nth-child(even){width:15%;}
+#gridoptionrow tr td:nth-child(odd){width:85%;}
+
+#gridoptioncol tr td:nth-child(even){width:15%;}
+#gridoptioncol tr td:nth-child(odd){width:85%;}

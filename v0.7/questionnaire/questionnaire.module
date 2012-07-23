@@ -1,0 +1,448 @@
+<?php
+
+/**
+ * @file
+ * Este módulo nos permite crear nuestra nube de tags
+ */
+ 
+ /*
+  * Implementación hook_menu()
+  */
+  
+function questionnaire_menu() {
+  $items['questionnaire/insertuser'] = array(
+    'title' => 'Insert user to obtain unique id',
+    'page callback' => 'questionnaire_insert_form_user',
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );  
+  
+  $items['questionnaire/get'] = array(
+    'title' => 'Get Questionnaire',
+    'page callback' => 'questionnaire_get_questionnaire',
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/getbyidform'] = array(
+    'title' => 'Get Questionnaire',
+    'page callback' => 'questionnaire_get_questionnaire_by_idform',
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/getprofile'] = array(
+    'title' => 'Get Ptofile Questionnaire',
+    'page callback' => 'questionnaire_get_questionnaire_profile',
+    //'page arguments' => array('Jane', 'Doe'),
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/obtainusername'] = array(
+    'title' => 'Obtain username for questionnaire',
+    'page callback' => 'questionnaire_obtain_username',
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );  
+  
+  $items['questionnaire/getmobilelogin'] = array(
+    'title' => 'Get Ptofile Questionnaire',
+    'page callback' => 'questionnaire_get_questionnaire_mobile_login',
+    //'page arguments' => array('Jane', 'Doe'),
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+    $items['questionnaire/getmobileregister'] = array(
+    'title' => 'Get Ptofile Questionnaire',
+    'page callback' => 'questionnaire_get_questionnaire_mobile_register',
+    //'page arguments' => array('Jane', 'Doe'),
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  
+  $items['questionnaire/set'] = array(
+    'title' => 'Save Questionnaire',
+    'page callback' => 'questionnaire_save_questionnaire',
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/done'] = array(
+    'title' => 'Done Questionnaire',
+    'page callback' => 'questionnaire_done_questionnaire',
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/loadanswers'] = array(
+    'title' => 'Load Users answers',
+    'page callback' => 'questionnaire_load_answers',
+    //'page_arguments' => array(1),
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+    
+  $items['questionnaire/qualify'] = array(
+    'title' => 'Qualify Function',
+    'page callback' => 'questionnaire_qualify_register',
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/registerpanel'] = array(
+    'title' => 'Register panel function',
+    'page callback' => 'questionnaire_register_panel',
+    'file' => 'questionnaire.pages.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['node/%questionnaire_menu/questionnaire'] = array(
+    'title' => 'Build',
+    'page callback' => 'questionnaire_questionnaire_page',
+    'page arguments' => array(1),
+    'access callback' => 'user_access',
+    'access arguments' => array('build questionnaire'),
+    'file' => 'includes/questionnaire.questionnaire.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['questionnaire/selectform'] = array(
+    'title' => 'Questionnaire',
+    'page callback' => 'questionnaire_questionnaire_select',
+    'file' => 'includes/questionnaire.questionnaire.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectformid'] = array(
+    'title' => 'Questionnaire',
+    'page callback' => 'questionnaire_questionnaire_selectform',
+    'file' => 'includes/questionnaire.questionnaire.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/saveform'] = array(
+    'title' => 'Questionnaire',
+    'page callback' => 'questionnaire_questionnaire_save',
+    'file' => 'includes/questionnaire.questionnaire.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectquestion'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_select',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectoption'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_selectoption',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectgridrow'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_selectgridrow',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectgridcol'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_selectgridcol',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectconditionals'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_selectconditionals',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/selectquestionid'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_selectquestion',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/savequestion'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_save',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/delquestion'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_delete',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/updateorderquestion'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_updateorder',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/updatepagebreakquestion'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_updatepagebreak',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  
+  $items['questionnaire/conditionquestions'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_conditionquestions',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  $items['questionnaire/conditionoptions'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_conditionoptions',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  $items['questionnaire/enableorder'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_enableorder',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  $items['questionnaire/clonequestion'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_clonequestion',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );
+  $items['questionnaire/finish'] = array(
+    'title' => 'Question',
+    'page callback' => 'questionnaire_question_finish',
+    'file' => 'includes/questionnaire.question.inc',
+    'access callback' => TRUE,
+    'type' => MENU_SUGGESTED_ITEM,
+  );  
+  return $items;
+}
+/**
+ * Permission for node/%/questionnaire.
+ */
+ 
+ function questionnaire_permission(){
+  return array(
+    'build questionnaire' => array(
+      'title' => t('Allow Build a questionnaire with the backend tool.'),
+    ) 
+  ); 
+}
+
+/**
+ * Retreive a Drupal variable with the appropriate default value.
+ */
+
+function questionnaire_variable_get($variable) {
+  switch ($variable) {
+    case 'questionnaire_node_types':
+      $result = variable_get('questionnaire_node_types', array('questionnaire'));
+      break;
+    case 'questionnaire_node_types_primary':
+      $result = variable_get('questionnaire_node_types_primary', array('questionnaire'));
+      break;
+  }
+  return $result;
+}
+
+function questionnaire_menu_load($nid) {
+  if (!is_numeric($nid)) {
+    return FALSE;
+  }
+  
+  $node = node_load($nid);
+  if (!isset($node->type) || !in_array($node->type, questionnaire_variable_get('questionnaire_node_types'))){    
+    return FALSE;
+  }
+  return $node;
+}
+
+/**
+ * Implements hook_node_type().
+ */
+/*function questionnaire_node_type($op, $info) {
+  $questionnaire_types = questionnaire_variable_get('questionnaire_node_types');
+  $affected_type = isset($info->old_type) ? $info->old_type : $info->type;
+  $key = array_search($affected_type, $questionnaire_types);
+  if ($key !== FALSE) {
+    if ($op == 'update') {
+      $questionnaire_types[$key] = $info->type;
+    }
+    if ($op == 'delete') {
+      unset($questionnaire_types[$key]);
+    }
+    variable_set('questionnaire_node_types', $questionnaire_types);
+  }
+}*/
+
+/**
+ * Implements hook_node_load().
+ */
+/*function questionnaire_node_load($node) {
+  //module_load_include('inc', 'questionnaire', 'includes/questionnaire.components');
+
+    if (isset($node->nid)) {
+        $questionnaire = db_fetch_array(db_query('SELECT * FROM {form_form} WHERE nid = %d', $node->nid));
+        // If a questionnaire record doesn't exist, just return the defaults.
+        if (!$questionnaire) {
+            return null;
+        }else{
+            return $questionnaire;
+        }
+    }else{
+        return null;
+    }
+}*/
+
+
+/**
+* Implementacion hook_load().
+*/
+
+function questionnaire_load($nodes) {
+    foreach($nodes as $node) {
+        $node->type_questionnaire = "Questionnaire Content";
+    }
+    
+    return $node;
+}
+
+
+
+/**
+* Implementacion hook_info().
+*/
+function questionnaire_node_info() {
+	return array(
+		'questionnaire' => array(
+		  'name' => t('Questionnaire'),
+		  'base' => 'questionnaire',
+		  'description' => t('Node that allows creating forms'),
+          'has_title' => TRUE,
+          'title_label' => t('Questionnaire title'),
+		),
+	);
+}
+
+function questionnaire_form($node, $form_state) {
+  $type = node_type_get_type($node);
+  $form['title'] = array(
+    '#type' => 'textfield',
+    '#title' => check_plain($type->title_label),
+    '#default_value' => !empty($node->title) ? $node->title : '',
+    '#required' => TRUE, '#weight' => -5
+  );
+ 
+  return $form;
+}
+
+/**
+* Implementacion hook_theme().
+*/
+
+function questionnaire_theme() {
+  
+  return array(
+    'questionnaire_create_questionnaire' => array(
+      'template' => 'questionnaire',
+    ),
+  );
+}
+
+/**
+* Implementacion hook_view().
+*/
+
+function questionnaire_view($node, $view_mode) {
+    
+    if($view_mode == 'full') {
+        $node->content['questionnaire_content'] = array (
+            '#markup' => theme('questionnaire_create_questionnaire', array(
+                                'questionnaire_node_id' => $node->nid
+                              ))
+            );
+    }
+    
+    return $node;
+}
+                                          
+function questionnaire_build_filter_query(SelectQuery $query) {
+  $filters = user_filters();
+  // Extend Query with filter conditions.
+  foreach (isset($_SESSION['user_overview_filter']) ? $_SESSION['user_overview_filter'] : array() as $filter) {
+    list($key, $value) = $filter;
+    // This checks to see if this permission filter is an enabled permission for
+    // the authenticated role. If so, then all users would be listed, and we can
+    // skip adding it to the filter query.
+    if ($key == 'permission') {
+      $account = new stdClass();
+      $account->uid = 'user_filter';
+      $account->roles = array(DRUPAL_AUTHENTICATED_RID => 1);
+      if (user_access($value, $account)) {
+        continue;
+      }
+      $users_roles_alias = $query->join('users_roles', 'ur', '%alias.uid = u.uid');
+      $permission_alias = $query->join('role_permission', 'p', $users_roles_alias . '.rid = %alias.rid');
+      $query->condition($permission_alias . '.permission', $value);
+    }
+    elseif ($key == 'role') {
+      $users_roles_alias = $query->join('users_roles', 'ur', '%alias.uid = u.uid');
+      $query->condition($users_roles_alias . '.rid' , $value);
+    }
+    else {
+      $query->condition($filters[$key]['field'], $value);
+    }
+  }
+}

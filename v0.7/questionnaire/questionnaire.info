@@ -1,0 +1,9 @@
+name = Questionnaire
+description = allows create custom forms.
+package = Engage
+core = 7.x
+
+files[] = questionnaire.module
+files[] = questionnaire.install
+
+version = "7.x-1.0-beta1"

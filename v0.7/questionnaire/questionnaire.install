@@ -1,0 +1,758 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the questionnaire module.
+ *
+ * This file contains the functions required to perform install and
+ * uninstall operations.
+ *
+ */
+ 
+ /**
+ * Implements hook_install().
+ */
+function questionnaire_install() {
+  // During installation, the t() function is unavailable, so we use get_t()
+  // to store the name of the translation function.
+  $t = get_t();
+
+  // We define the node type as an associative array.
+  $node_questionnaire = array(
+    'type' => 'questionnaire',
+    'name' => $t('Questionnaire'),
+    // 'base' tells Drupal the base string for hook functions.
+    // This is often the module name; if base is set to 'mymodule', Drupal
+    // would call mymodule_insert() or similar for node hooks.
+    // In this case, we set base equal to 'node_content' so Drupal will handle
+    // our node as if we had designed it in the UI.
+    'base' => 'node_content',
+    'description' => $t('Questionnaire node type'),
+    'body_label' => $t('Questionnaire Description'),
+    'custom' => TRUE,
+  );
+
+  // Complete the node type definition by setting any defaults not explicitly
+  // declared above.
+  // http://api.drupal.org/api/function/node_type_set_defaults/7
+  $content_type = node_type_set_defaults($node_questionnaire);
+  //node_add_body_field($content_type);
+  
+  // Save the content type
+  node_type_save($content_type);
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * It's good to clean up after ourselves
+ */
+function questionnaire_uninstall() {
+  db_drop_table('form_form');
+  db_drop_table('form_answer');
+  db_drop_table('form_grid_column');
+  db_drop_table('form_grid_row');
+  db_drop_table('form_question');  
+  db_drop_table('form_question_logic');
+  db_drop_table('form_question_option');
+  db_drop_table('form_question_option_label');
+  db_drop_table('form_rel_question_form');
+  db_drop_table('form_rel_button_form');
+  db_drop_table('form_button');
+}
+
+/**
+ * Implements hook_schema().
+ */
+function questionnaire_schema() {
+  $schema['form_button'] = array(
+    'description' => '',
+    'fields' => array(
+	   'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ), 
+      'id_button'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'text_button' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+	  'token' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+      ),
+	  'type_button'    => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+      ),
+	  'place_button' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id_button'),
+  );
+  $schema['form_form'] = array(
+    'description' => '',
+    'fields' => array(
+	   'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ), 
+      'id'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'description' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => FALSE,
+      ),
+	  'lang' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 2,
+        'not null' => FALSE,
+      ),
+	  'image'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+		'default' => '0',
+        'not null' => TRUE,
+      ),
+	  'active' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => FALSE,
+      ),
+	  'start' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'end' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'date' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'place_buttons' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => FALSE,
+      ),
+	  'type_buttons' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['form_answer'] = array(
+    'description' => '',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ), 
+      'id_form'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+		'default' => '0',
+        'not null' => TRUE,
+      ),
+	  'id_question'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+		'default' => '0',
+        'not null' => TRUE,
+      ),
+	  'id_option'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+		'default' => '0',
+      ),
+	  'id_option_multiple'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+		'default' => '0',
+      ),
+	  'id_grid_row'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'default' => '0',
+      ),
+	  'answer' => array(
+        'description' => '',
+        'type' => 'text',
+        'size' => 'medium',
+      ),
+	  'uid'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'date' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id_form','id_question','uid','date'),
+	'unique keys' => array(
+		'FK_cuest_con_preg' => array('id_question'),
+	),
+  );
+  $schema['form_grid_column'] = array(
+    'description' => '',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ), 
+      'id_question'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'id_column'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'text'    => array(
+        'description' => '',
+        'type' => 'varchar',
+		'length' => '100',
+        'not null' => TRUE,
+      ),
+	  'visible'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+		'default' => '1',
+        'not null' => TRUE,
+      ),
+	  'order'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id_question','id_column'),
+  );
+  $schema['form_grid_row'] = array(
+    'description' => '',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id_question'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'id_row'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'text'    => array(
+        'description' => '',
+        'type' => 'varchar',
+		'length' => '100',
+        'not null' => TRUE,
+      ),
+	  'visible'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+		'default' => '1',
+        'not null' => TRUE,
+      ),
+	  'order'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id_question','id_row'),
+  );
+  $schema['form_lang_validation'] = array(
+    'description' => '',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'id_question'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'lang'    => array(
+        'description' => '',
+        'type' => 'varchar',
+		'length' => '2',
+        'not null' => TRUE,
+      ),
+	  'token'    => array(
+        'description' => '',
+        'type' => 'varchar',
+		'length' => '50',
+        'not null' => TRUE,
+      ),
+	  'text'    => array(
+        'description' => '',
+        'type' => 'varchar',
+		'length' => '255',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['form_pagination'] = array(
+    'description' => '',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'id_form'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'num_questions'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'final'  => array(
+        'description' => '',
+        'type' => 'int',
+		'size' => 'tiny',
+        'precision' => '1',
+		'default' => '0',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['form_question'] = array(
+    'description' => 'question form',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id_question'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'question'  => array(
+        'description' => '',
+        'type' => 'text',
+		'size' => 'medium',
+        'not null' => TRUE,
+      ),
+	  'description' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '150',
+        'not null' => FALSE,
+      ),
+	  'image'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+		'default' => '0',
+        'not null' => TRUE,
+      ),
+	  'maxlength'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+	  'validation' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+	  'validation_extra' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '45',
+        'not null' => FALSE,
+      ),
+	  'type' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => TRUE,
+      ),
+      'subtype' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '50',
+        'not null' => FALSE,
+      )
+    ),
+    'primary key' => array('id_question'),
+  );
+  $schema['form_question_logic'] = array(
+    'description' => '',
+    'fields' => array(
+	  'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'id_form'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+      'id_question'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+	  'logic' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '5',
+        'not null' => FALSE,
+      ),
+	  'id_question_dependence'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+	  'id_option_dependence' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '100',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+	'foreign keys' => array(
+		'FK_cuest_logica_pregunta' => array('id_form'),
+		'FK_cuest_logica_preg_preg' => array('id_question'),
+	),
+  );
+  $schema['form_question_option'] = array(
+    'description' => '',
+    'fields' => array(
+	   'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id_question'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'id_option'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'id_option_multiple'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+		'default' => '0',
+        'not null' => TRUE,
+      ),
+	  'option' => array(
+        'description' => '',
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => FALSE,
+      ),
+	  'image'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+		'default' => '0',
+      ),
+	  'order'  => array(
+        'description' => '',
+        'type' => 'int',
+		'size' => 'small',
+        'precision' => '6',
+        'not null' => TRUE,
+      ),
+	  'visible'  => array(
+        'description' => '',
+        'type' => 'int',
+		'size' => 'small',
+        'precision' => '6',
+        'not null' => TRUE,
+      ),
+	  'date' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id_question','id_option','id_option_multiple'),
+  );
+  $schema['form_question_option_label'] = array(
+    'description' => '',
+    'fields' => array(
+	   'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id'    => array(
+        'description' => '',
+        'type' => 'serial',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'id_question'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'label'    => array(
+        'description' => '',
+        'type' => 'varchar',
+		'length' => '50',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  $schema['form_rel_button_form'] = array(
+    'description' => '',
+    'fields' => array(
+	   'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id_form'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'id_button'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'active'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => TRUE,
+      ),
+	  'order'    => array(
+        'description' => '',
+        'type' => 'int',
+		'precision' => '11',
+        'not null' => FALSE,
+      ),
+	  'date' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('id_form', 'id_button'),
+  );
+  $schema['form_rel_question_form'] = array(
+    'description' => '',
+    'fields' => array(
+	   'nid'    => array(
+        'description' => '',
+        'type' => 'int',
+		'unsigned' => 'TRUE',
+        'precision' => '10',
+        'not null' => TRUE,
+       ),
+      'id_form'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+      'id_question'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+	  'mandatory'    => array(
+        'description' => '',
+        'type' => 'int',
+		'size' => 'small',
+        'precision' => '6',
+        'not null' => FALSE,
+      ),
+	  'order'    => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => FALSE,
+      ),
+	  'active'    => array(
+        'description' => '',
+        'type' => 'int',
+        'size' => 'small',
+        'precision' => '6',
+        'not null' => FALSE,
+      ),
+	  'vertical'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => FALSE,
+      ),
+	  'data_multiple'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => FALSE,
+      ),
+	  'data_native_menu'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => FALSE,
+      ),
+	  'wide'  => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '1',
+        'not null' => FALSE,
+      ),
+	  'date' => array(
+        'description' => '',
+        'type' => 'int',
+        'precision' => '11',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id_form','id_question'),
+	'foreign keys' => array(
+		'FK_cuest_rel_cuest_preg_p' => array('id_question'),
+	),
+  );
+  return $schema;
+}

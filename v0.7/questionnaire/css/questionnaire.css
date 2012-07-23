@@ -1,0 +1,80 @@
+#divprincipal {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.divgridQuestionnaire {
+    background-color:#EEE;
+    border-bottom: 1px solid black;
+    float:left;
+    width: 100%;
+}
+
+.divgridQuestionnaire.header { 
+    background-color: #ccc;
+}
+
+.divgridQuestionnaire.footer { 
+    background-color: #ccc;
+    padding: 10px 0 10px 0;
+    text-align: center;
+}
+
+.colQuestionnaire {
+    float:left;
+    padding: 10px; 
+}
+
+.colQuestionnaire.number {
+    text-align: center;
+    width: 5%;
+}
+
+.colQuestionnaire.date {
+    text-align: center;
+    width: 10%;
+}
+
+.colQuestionnaire.text {
+    /*width: 35%;*/
+    float: left;
+    width: 40%;
+    text-align: left;
+}
+.colQuestionnaire.version {
+    float: left;
+    text-align: center;
+    width: 30%;
+}
+.colQuestionnaire.buttons {
+    float: right;
+    width: 20%;
+}
+
+.container-modal-popup {
+    background: url('../images/css-images/pixel_transparent.png') repeat;
+    display: none;
+    height: 100%;
+    left: 0;
+    /*overflow: hidden;*/
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#modal_popupQuestionnaire,
+#modal_popupQuestion
+{
+    background-color: #ccc;
+    border: 1px solid black;
+    display: block;
+    height: auto;
+    left:50%;
+    margin: 0;
+    padding: 20px;
+    /*position: absolute;*/
+    position: fixed;
+    top: 50%;
+}
